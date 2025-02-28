@@ -1,7 +1,9 @@
+import 'package:feature_mind_news/common/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../common/utils/colors.dart';
+import '../common/utils/utils.dart';
 import '../main.dart';
 
 class NewsListScreen extends ConsumerStatefulWidget {
@@ -19,6 +21,14 @@ class _NewsListScreenState extends ConsumerState<NewsListScreen> {
   void initState() {
     super.initState();
     _scrollController.addListener(_onScroll);
+    ref.listenManual(newsNotifierProvider, (previous, next) async {
+      if (!mounted) return; // Prevent execution if the widget is disposed
+      //Listen for state changes
+      if (next.error != null) {
+        Utils.showSnackBar(title: 'Error', context, message: next.error!);
+        ref.read(newsNotifierProvider.notifier).resetError();
+      }
+    });
   }
 
   void _onScroll() {
@@ -42,34 +52,42 @@ class _NewsListScreenState extends ConsumerState<NewsListScreen> {
     final isLoading = state.isLoading;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('News')),
+      appBar:
+          AppBar(title: Text('News', style: context.textTheme.displayMedium)),
       body: isLoading
           ? const Center(
               child: CircularProgressIndicator(
               color: AppColors.primary,
               strokeWidth: 2,
             ))
-          : ListView(
-              controller: _scrollController,
-              children: [
-                ...newsList.map((article) => ListTile(
-                      title: Text(article.title),
-                      subtitle: Text(article.description),
-                    )),
-                if (state.isLoadingMore) ...{
-                  Center(
-                    child: Container(
-                      padding: const EdgeInsets.all(5.0),
-                      height: 30,
-                      width: 30,
-                      child: const CircularProgressIndicator(
-                        color: AppColors.primary,
-                        strokeWidth: 2,
+          : RefreshIndicator(
+              onRefresh: () async {
+                // Refresh the provider
+                final notifier = ref.refresh(newsNotifierProvider.notifier);
+                notifier.fetchNews(widget.query);
+              },
+              child: ListView(
+                controller: _scrollController,
+                children: [
+                  ...newsList.map((article) => ListTile(
+                        title: Text(article.title),
+                        subtitle: Text(article.description),
+                      )),
+                  if (state.isLoadingMore) ...{
+                    Center(
+                      child: Container(
+                        padding: const EdgeInsets.all(5.0),
+                        height: 30,
+                        width: 30,
+                        child: const CircularProgressIndicator(
+                          color: AppColors.primary,
+                          strokeWidth: 2,
+                        ),
                       ),
-                    ),
-                  )
-                }
-              ],
+                    )
+                  }
+                ],
+              ),
             ),
     );
   }
