@@ -45,8 +45,8 @@ class NewsNotifier extends StateNotifier<NewsState> {
       Utils.log(message: "$stacktrace");
       debugPrint("Error fetching news: $error");
       state = state.copyWith(
-        error: error.toString().replaceAll('Exception: ', ''),
-      );
+          error: error.toString().replaceAll('Exception: ', ''),
+          isEveryArticleLoaded: true);
       _page = 1;
     } finally {
       state = state.copyWith(isLoading: false, isLoadingMore: false);
