@@ -1,8 +1,7 @@
-import 'package:feature_mind_news/home/domain/article_item.dart';
-import 'package:feature_mind_news/home/domain/news_repository.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'home/data/data.dart';
+import 'data/data.dart';
+import 'domain/domain.dart';
 
 final getIt = GetIt.I;
 
@@ -24,4 +23,6 @@ Future<void> initApp() async {
     remoteDataSource: getIt(),
     localDataSource: getIt(),
   ));
+
+  getIt.registerSingleton<GetArticlesUseCase>(GetArticlesUseCase(getIt()));
 }

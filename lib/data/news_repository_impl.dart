@@ -1,5 +1,5 @@
-import '../domain/article_item.dart';
 import '../domain/news_repository.dart';
+import '../domain/paginated_articles.dart';
 import 'news_local_data_source.dart';
 import 'news_remote_data_source.dart';
 
@@ -11,21 +11,22 @@ class NewsRepositoryImpl extends NewsRepository {
       {required this.remoteDataSource, required this.localDataSource});
 
   @override
-  Future<List<ArticleItem>> getItems({
+  Future<PaginatedArticles> getItems({
     String? query,
     int? pageSize,
     int? pageIndex,
   }) async {
-    // final cachedData = localDataSource.getCachedArticles();
-    // if (cachedData.isNotEmpty) {
-    //   return cachedData;
-    // }
+    //try {
     final items = await remoteDataSource.fetchItems(
       query: query,
       pageIndex: pageIndex,
       pageSize: pageSize,
     );
-    // localDataSource.cacheArticles(items);
+    localDataSource.cacheArticles(items.articles);
     return items;
+    // } catch (_) {
+    //   final cachedData = localDataSource.getCachedArticles();
+    //   return cachedData;
+    // }
   }
 }

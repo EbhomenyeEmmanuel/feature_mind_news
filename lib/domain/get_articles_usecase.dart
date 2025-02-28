@@ -1,13 +1,12 @@
-import 'package:feature_mind_news/home/domain/news_repository.dart';
-
-import 'article_item.dart';
+import 'news_repository.dart';
+import 'paginated_articles.dart';
 
 class GetArticlesUseCase {
   final NewsRepository repository;
 
   GetArticlesUseCase(this.repository);
 
-  Future<List<ArticleItem>> get({
+  Future<PaginatedArticles> get({
     String? query,
     int? pageSize,
     int? pageIndex,
