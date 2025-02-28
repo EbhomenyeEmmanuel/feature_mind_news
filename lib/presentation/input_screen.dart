@@ -22,23 +22,21 @@ class _InputScreenState extends ConsumerState<InputScreen> {
   void initState() {
     super.initState();
     inputCtrl = TextEditingController(); //instantiate the controller
-    bool hasNavigated = false; // Track if navigation happened
-    ref.listenManual(newsNotifierProvider, (previous, next) async {
-      //Listen for state changes
-      if (next.articles.isNotEmpty && !hasNavigated) {
-        await Navigator.of(context)
-            .push(FadePageRoute(
-                page: NewsListScreen(query: next.query ?? inputCtrl.text)))
-            .then((_) {
-          print('kkkkk');
-          // ref.read(newsNotifierProvider.notifier).resetNavigation();
-          hasNavigated = false; // Reset when user comes back from route
-        });
-      }
-      if (next.error != null) {
-        Utils.showSnackBar(title: 'Error', context, message: next.error!);
-        ref.read(newsNotifierProvider.notifier).resetError();
-      }
+    ref.listenManual(newsNotifierProvider, (previous, next) {
+      if (!mounted) return; // Prevent execution if the widget is disposed
+      WidgetsBinding.instance.addPostFrameCallback((_) async {
+        //Listen for state changes
+        if ((previous?.articles.isEmpty ?? true) && next.articles.isNotEmpty) {
+          debugPrint('Navigating to screen 2');
+          await Navigator.of(context).push(FadePageRoute(
+              page: NewsListScreen(query: next.query ?? inputCtrl.text)));
+        }
+        if (next.error != null) {
+          if (!mounted) return;
+          Utils.showSnackBar(title: 'Error', context, message: next.error!);
+          ref.read(newsNotifierProvider.notifier).resetError();
+        }
+      });
     });
   }
 

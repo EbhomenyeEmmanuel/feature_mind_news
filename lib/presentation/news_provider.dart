@@ -46,7 +46,8 @@ class NewsNotifier extends StateNotifier<NewsState> {
       debugPrint("Error fetching news: $error");
       state = state.copyWith(
           error: error.toString().replaceAll('Exception: ', ''),
-          isEveryArticleLoaded: true);
+          isEveryArticleLoaded:
+              true); // Prevented api call since an error exists
       _page = 1;
     } finally {
       state = state.copyWith(isLoading: false, isLoadingMore: false);
@@ -57,9 +58,4 @@ class NewsNotifier extends StateNotifier<NewsState> {
   void resetError() {
     state = state.copyWith(error: null);
   }
-
-  // /// Reset the error after error is displayed
-  // void resetNavigation() {
-  //   state = state.copyWith(hasNavigated: false);
-  // }
 }
