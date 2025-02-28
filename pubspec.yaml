@@ -30,12 +30,13 @@ environment:
 dependencies:
   cached_network_image: ^3.2.3
   cupertino_icons: ^1.0.8
-  dartz: ^0.10.1 
+  dartz: ^0.10.1
   equatable: ^2.0.3
   flutter:
     sdk: flutter
   flutter_dotenv: ^5.1.0
   flutter_riverpod: ^2.6.1
+  flutter_svg: ^1.0.0
   freezed_annotation: ^2.4.4
   get_it: ^7.2.0
   google_fonts: ^6.2.1
@@ -80,7 +81,8 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/
+    - assets/    
+    - assets/svg/
     - keys.env
   # To add assets to your application, add an assets section, like this:
   # assets:
