@@ -12,7 +12,7 @@ class NewsAppTheme {
     displayMedium: GoogleFonts.openSans(
         fontSize: 24.0, fontWeight: FontWeight.bold, color: Colors.black),
     displaySmall: GoogleFonts.openSans(
-        fontSize: 20.0, fontWeight: FontWeight.w600, color: Colors.black),
+        fontSize: 14.0, fontWeight: FontWeight.w400, color: Colors.black),
     headlineMedium: GoogleFonts.openSans(
         fontSize: 18.0, fontWeight: FontWeight.bold, color: Colors.black),
     titleLarge: GoogleFonts.openSans(
@@ -20,12 +20,10 @@ class NewsAppTheme {
   );
 
   static ThemeData light() {
-     return ThemeData(
+    return ThemeData(
         brightness: Brightness.light,
         // primaryColor:,
         hintColor: Colors.black,
-        textSelectionTheme:
-            const TextSelectionThemeData(selectionColor: Colors.black),
         textTheme: lightTextTheme,
         scaffoldBackgroundColor: Colors.white,
         colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary),

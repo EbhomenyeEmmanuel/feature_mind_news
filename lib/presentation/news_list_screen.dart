@@ -1,9 +1,5 @@
-import 'package:feature_mind_news/common/utils/extensions.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../common/utils/colors.dart';
-import '../common/utils/utils.dart';
+import 'package:feature_mind_news/presentation/search_screen.dart';
+import '../init.dart';
 import '../main.dart';
 
 class NewsListScreen extends ConsumerStatefulWidget {
@@ -52,8 +48,18 @@ class _NewsListScreenState extends ConsumerState<NewsListScreen> {
     final isLoading = state.isLoading;
 
     return Scaffold(
-      appBar:
-          AppBar(title: Text('News', style: context.textTheme.displayMedium)),
+      appBar: AppBar(
+          title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('News', style: context.textTheme.displayMedium),
+          SvgIconButton('search', onTap: () async {
+            await Navigator.of(context)
+                .push(LeftToRightPageRoute(page: const SearchScreen()));
+          }),
+        ],
+      )),
       body: isLoading
           ? const Center(
               child: CircularProgressIndicator(
@@ -70,6 +76,14 @@ class _NewsListScreenState extends ConsumerState<NewsListScreen> {
                 controller: _scrollController,
                 children: [
                   ...newsList.map((article) => ListTile(
+                        leading: FeatureMindNetworkImage(
+                          url: article.urlToImage,
+                          errorPlaceholder: article.title,
+                          width: 50,
+                          height: 50,
+                          boxFit: BoxFit.cover,
+                          isCircular: true,
+                        ),
                         title: Text(article.title),
                         subtitle: Text(article.description),
                       )),

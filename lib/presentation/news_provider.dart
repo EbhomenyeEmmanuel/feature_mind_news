@@ -35,7 +35,7 @@ class NewsNotifier extends StateNotifier<NewsState> {
       // Calculate total pages left in the api using resultPerPage query
       final totalPages = (res.totalResults / resultPerPage).ceil();
 
-      final articles = state.articles.followedBy(res.articles).toList();
+      final articles = state.articles.followedBy(res.articles).toSet().toList();
       state = state.copyWith(
           articles: articles, isEveryArticleLoaded: _page >= totalPages);
     } on SocketException catch (_) {

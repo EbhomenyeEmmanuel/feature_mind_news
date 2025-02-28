@@ -16,17 +16,17 @@ class NewsRepositoryImpl extends NewsRepository {
     int? pageSize,
     int? pageIndex,
   }) async {
-    //try {
-    final items = await remoteDataSource.fetchItems(
-      query: query,
-      pageIndex: pageIndex,
-      pageSize: pageSize,
-    );
-    localDataSource.cacheArticles(items.articles);
-    return items;
-    // } catch (_) {
-    //   final cachedData = localDataSource.getCachedArticles();
-    //   return cachedData;
-    // }
+    try {
+      final items = await remoteDataSource.fetchItems(
+        query: query,
+        pageIndex: pageIndex,
+        pageSize: pageSize,
+      );
+      await localDataSource.cacheArticles(query, items.articles);
+      return items;
+    } catch (_) {
+      final cachedData = localDataSource.getCachedArticles(query);
+      return PaginatedArticles(totalResults: 0, articles: cachedData);
+    }
   }
 }

@@ -34,3 +34,34 @@ class Utils {
     );
   }
 }
+
+//Used page route builder to create a transition animation
+class FadePageRoute<T> extends PageRouteBuilder<T> {
+  final Widget page;
+  FadePageRoute({required this.page})
+      : super(
+          pageBuilder: (context, animation, secondaryAnimation) => page,
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return FadeTransition(opacity: animation, child: child);
+          },
+        );
+}
+
+//Used page route builder to create a slide animation
+class LeftToRightPageRoute<T> extends PageRouteBuilder<T> {
+  final Widget page;
+  LeftToRightPageRoute({required this.page})
+      : super(
+          pageBuilder: (context, animation, secondaryAnimation) => page,
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            const begin = Offset(1.0, 0.0); // Start off-screen to the right
+            const end = Offset.zero;
+            const curve = Curves.easeInOut;
+            var tween =
+                Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+            var offsetAnimation = animation.drive(tween);
+
+            return SlideTransition(position: offsetAnimation, child: child);
+          },
+        );
+}

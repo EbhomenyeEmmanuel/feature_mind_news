@@ -10,13 +10,18 @@ Future<void> initApp() async {
   if (!Hive.isAdapterRegistered(0)) {
     Hive.registerAdapter(ArticleItemAdapter());
   }
-  final Box<ArticleItem> articleItemBox = await Hive.openBox("articleItemBox");
+  final Box<List<ArticleItem>> articleItemBox =
+      await Hive.openBox("articleItemBox");
+  final Box<String> searchBox = await Hive.openBox("searchBox");
 
   /// datasources
   getIt.registerSingleton<NewsRemoteDataSource>(NewsRemoteDataSource());
 
   getIt.registerSingleton<NewsLocalDataSource>(
       NewsLocalDataSource(articleItemBox));
+
+  getIt
+      .registerSingleton<SearchItemDataSource>(SearchItemDataSource(searchBox));
 
   /// repositories
   getIt.registerSingleton<NewsRepository>(NewsRepositoryImpl(

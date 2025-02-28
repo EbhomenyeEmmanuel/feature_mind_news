@@ -25,44 +25,49 @@ class FeatureMindNetworkImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-        child: (url.isEmpty)
-            ? _ErrorWidget(
-                height: height,
-                width: width,
-                isCircular: isCircular,
-                errorPlaceholder: errorPlaceholder)
-            : CachedNetworkImage(
-                progressIndicatorBuilder: (context, url, downloadProgress) =>
-                    Center(
-                  child: SizedBox(
-                    height: (height ?? 32) * 0.5,
-                    width: (width ?? 32) * 0.5,
-                    child: CircularProgressIndicator(
-                      value: downloadProgress.progress,
-                      color: AppColors.primary,
-                      strokeWidth: 2,
-                    ),
-                  ),
-                ),
-                errorWidget: (context, url, error) => _ErrorWidget(
-                    height: height,
-                    width: width,
-                    isCircular: isCircular,
-                    errorPlaceholder: errorPlaceholder),
-                imageBuilder: (context, imageProvider) => Container(
+    return SizedBox(
+      height: height,
+      width: width,
+      child: Center(
+          child: (url.isEmpty)
+              ? _ErrorWidget(
                   height: height,
                   width: width,
-                  decoration: BoxDecoration(
-                      shape: isCircular ? BoxShape.circle : BoxShape.rectangle,
-                      borderRadius: isCircular ? null : borderRadius,
-                      image: DecorationImage(
-                        image: imageProvider,
-                        fit: boxFit,
-                      )),
-                ),
-                imageUrl: url,
-              ));
+                  isCircular: isCircular,
+                  errorPlaceholder: errorPlaceholder)
+              : CachedNetworkImage(
+                  progressIndicatorBuilder: (context, url, downloadProgress) =>
+                      Center(
+                    child: SizedBox(
+                      height: (height ?? 32) * 0.5,
+                      width: (width ?? 32) * 0.5,
+                      child: CircularProgressIndicator(
+                        value: downloadProgress.progress,
+                        color: AppColors.primary,
+                        strokeWidth: 2,
+                      ),
+                    ),
+                  ),
+                  errorWidget: (context, url, error) => _ErrorWidget(
+                      height: height,
+                      width: width,
+                      isCircular: isCircular,
+                      errorPlaceholder: errorPlaceholder),
+                  imageBuilder: (context, imageProvider) => Container(
+                    height: height,
+                    width: width,
+                    decoration: BoxDecoration(
+                        shape:
+                            isCircular ? BoxShape.circle : BoxShape.rectangle,
+                        borderRadius: isCircular ? null : borderRadius,
+                        image: DecorationImage(
+                          image: imageProvider,
+                          fit: boxFit,
+                        )),
+                  ),
+                  imageUrl: url,
+                )),
+    );
   }
 }
 
@@ -87,7 +92,7 @@ class _ErrorWidget extends StatelessWidget {
         decoration: BoxDecoration(
           shape: isCircular ? BoxShape.circle : BoxShape.rectangle,
           borderRadius: isCircular ? null : BorderRadius.circular(8),
-          color: const Color(0xFFFEF4EE),
+          color: AppColors.primary,
         ),
         child: errorPlaceholder != null
             ? Center(
@@ -100,7 +105,7 @@ class _ErrorWidget extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                     fontSize: 14,
                     height: 20 / 14,
-                    color: AppColors.black,
+                    color: Colors.white,
                   ),
                 ),
               )

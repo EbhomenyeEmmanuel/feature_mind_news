@@ -1,11 +1,7 @@
-import 'package:feature_mind_news/common/utils/extensions.dart';
-import 'package:flutter/material.dart';
-import 'package:feature_mind_news/common/presentation/components/components.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../common/utils/utils.dart';
 import '../main.dart';
 import 'news_list_screen.dart';
+
+import '../init.dart';
 
 class InputScreen extends ConsumerStatefulWidget {
   const InputScreen({super.key});
@@ -28,6 +24,9 @@ class _InputScreenState extends ConsumerState<InputScreen> {
         //Listen for state changes
         if ((previous?.articles.isEmpty ?? true) && next.articles.isNotEmpty) {
           debugPrint('Navigating to screen 2');
+          ref
+              .read(searchNotifierProvider.notifier)
+              .saveSearchQuery(inputCtrl.text);
           await Navigator.of(context).push(FadePageRoute(
               page: NewsListScreen(query: next.query ?? inputCtrl.text)));
         }
@@ -76,6 +75,13 @@ class _InputScreenState extends ConsumerState<InputScreen> {
                     return "Enter at least 3 characters";
                   }
                   return null;
+                },
+                onEditingComplete: () {
+                  if (_formKey.currentState!.validate()) {
+                    ref
+                        .read(newsNotifierProvider.notifier)
+                        .fetchNews(inputCtrl.text);
+                  }
                 },
               ),
               const SizedBox(

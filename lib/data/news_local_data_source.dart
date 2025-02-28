@@ -3,15 +3,15 @@ import 'package:hive_flutter/hive_flutter.dart';
 import '../domain/article_item.dart';
 
 class NewsLocalDataSource {
-  final Box<ArticleItem> articleItemBox;
+  final Box<List<ArticleItem>> articleItemBox;
 
   NewsLocalDataSource(this.articleItemBox);
 
-  List<ArticleItem> getCachedArticles() {
-    return articleItemBox.values.toList();
-  }
+  List<ArticleItem> getCachedArticles(String? query) =>
+      articleItemBox.get(query) ?? [];
 
-  void cacheArticles(List<ArticleItem> items) {
-    articleItemBox.putAll(items.asMap());
+  Future<void> cacheArticles(String? query, List<ArticleItem> items) async {
+    final totalCachedItems = (getCachedArticles(query) + items).toList();
+    await articleItemBox.put(query, totalCachedItems);
   }
 }

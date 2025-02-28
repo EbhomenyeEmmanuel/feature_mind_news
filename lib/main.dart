@@ -1,22 +1,19 @@
-import 'package:flutter/material.dart';
-
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:feature_mind_news/injector.dart';
-
-import 'app_theme.dart';
-import 'common/utils/colors.dart';
-import 'domain/get_articles_usecase.dart';
 import 'domain/news_state.dart';
+import 'init.dart';
 import 'presentation/input_screen.dart';
 import 'presentation/news_provider.dart';
+import 'presentation/search_notifier.dart';
 
 final newsNotifierProvider =
     StateNotifierProvider<NewsNotifier, NewsState>((ref) {
-  final useCaseProvider = Provider<GetArticlesUseCase>((ref) {
-    return getIt();
-  });
-  return NewsNotifier(ref.read(useCaseProvider));
+  return NewsNotifier(getIt());
+});
+
+final searchNotifierProvider =
+    StateNotifierProvider<SearchNotifier, List<String>>((ref) {
+  return SearchNotifier(getIt());
 });
 
 Future<void> main() async {
@@ -51,16 +48,4 @@ class MyApp extends StatelessWidget {
       home: const InputScreen(),
     );
   }
-}
-
-//Used page route builder to create a transition animation
-class FadePageRoute<T> extends PageRouteBuilder<T> {
-  final Widget page;
-  FadePageRoute({required this.page})
-      : super(
-          pageBuilder: (context, animation, secondaryAnimation) => page,
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            return FadeTransition(opacity: animation, child: child);
-          },
-        );
 }
