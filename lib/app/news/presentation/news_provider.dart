@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../common/utils/utils.dart';
@@ -44,9 +42,9 @@ class NewsNotifier extends StateNotifier<NewsState> {
       articles.sort((a, b) => DateTime.parse(b.publishedAt)
           .compareTo(DateTime.parse(a.publishedAt)));
       state = state.copyWith(
-          articles: articles, isEveryArticleLoaded: _page >= totalPages);
-    } on SocketException catch (_) {
-      state = state.copyWith(error: 'No Internet Connection!');
+          articles: articles,
+          isEveryArticleLoaded: _page >= totalPages || res.error != null,
+          error: res.error);
     } catch (error, stacktrace) {
       Utils.log(message: "Catch error: $error");
       Utils.log(message: "$stacktrace");
