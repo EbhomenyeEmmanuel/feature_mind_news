@@ -49,17 +49,18 @@ class _NewsListScreenState extends ConsumerState<NewsListScreen> {
 
     return Scaffold(
       appBar: AppBar(
-          title: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('News', style: context.textTheme.displayMedium),
-          SvgIconButton('search', onTap: () async {
-            await Navigator.of(context)
-                .push(LeftToRightPageRoute(page: const SearchScreen()));
-          }),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: SvgIconButton('search', onTap: () async {
+              await Navigator.of(context)
+                  .push(LeftToRightPageRoute(page: const SearchScreen()));
+            }),
+          ),
         ],
-      )),
+        title:
+            Align(child: Text('News', style: context.textTheme.displayMedium)),
+      ),
       body: isLoading
           ? const Center(
               child: CircularProgressIndicator(
