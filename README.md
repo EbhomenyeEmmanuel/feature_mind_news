@@ -2,12 +2,6 @@
 
 A clean and modern news app built using **Clean Architecture** and **Riverpod** for state management. This app fetches news articles from an API, supports pagination, includes animations and caching for a seamless user experience.
 
-## Screenshots
-![Input](https://github.com/user-attachments/assets/4f002540-d5dd-4e9d-9bb8-e0d0ca325e18)
-![Loading](https://github.com/user-attachments/assets/db1889f4-4930-4523-bcea-d7698212044e)
-![News List](https://github.com/user-attachments/assets/d9fb0c0b-303e-45a6-9318-c434bf9335ec)
-![Recent](https://github.com/user-attachments/assets/7c221e95-0995-40c8-bc74-87c9d9b7029c)
-
 ## Getting Started 
 To get started with the project, follow these steps:
 1. **Clone the repository:**
