@@ -73,9 +73,9 @@ class _InputScreenState extends ConsumerState<InputScreen> {
                 ),
                 controller: inputCtrl,
                 validator: (value) {
-                  if (value?.isEmpty ?? true) {
-                    return "Input cannot be empty";
-                  } else if (value!.length < 3) {
+                  if (value == null || value.trim().isEmpty) {
+                    return 'Please enter a valid input';
+                  } else if (value.length < 3) {
                     return "Enter at least 3 characters";
                   }
                   return null;
