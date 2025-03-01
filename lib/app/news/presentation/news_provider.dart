@@ -13,12 +13,16 @@ class NewsNotifier extends StateNotifier<NewsState> {
   NewsNotifier(this.useCase) : super(const NewsState());
 
   /// Fetch news articles
-  Future<void> fetchNews(String query, {bool isLoadMore = false}) async {
+  Future<void> fetchNews(String query,
+      {bool isLoadMore = false, bool isFromInput = false}) async {
     if (state.isLoading || (isLoadMore && state.isEveryArticleLoaded)) {
       return;
     }
     state = state.copyWith(
-        isLoading: !isLoadMore, query: query, isLoadingMore: isLoadMore);
+        isLoading: !isLoadMore,
+        query: query,
+        isLoadingMore: isLoadMore,
+        isFromInput: isFromInput);
     if (isLoadMore) {
       _page++;
     } else {
@@ -61,5 +65,10 @@ class NewsNotifier extends StateNotifier<NewsState> {
   /// Reset the error after error is displayed
   void resetError() {
     state = state.copyWith(error: null);
+  }
+
+  /// Reset the navigation flag
+  void resetNavigation() {
+    state = state.copyWith(isFromInput: false);
   }
 }

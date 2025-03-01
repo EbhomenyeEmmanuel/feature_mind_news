@@ -22,6 +22,7 @@ mixin _$NewsState {
   String? get query => throw _privateConstructorUsedError;
   String? get error => throw _privateConstructorUsedError;
   bool get isEveryArticleLoaded => throw _privateConstructorUsedError;
+  bool get isFromInput => throw _privateConstructorUsedError;
 
   /// Create a copy of NewsState
   /// with the given fields replaced by the non-null parameter values.
@@ -41,7 +42,8 @@ abstract class $NewsStateCopyWith<$Res> {
       List<ArticleItem> articles,
       String? query,
       String? error,
-      bool isEveryArticleLoaded});
+      bool isEveryArticleLoaded,
+      bool isFromInput});
 }
 
 /// @nodoc
@@ -65,6 +67,7 @@ class _$NewsStateCopyWithImpl<$Res, $Val extends NewsState>
     Object? query = freezed,
     Object? error = freezed,
     Object? isEveryArticleLoaded = null,
+    Object? isFromInput = null,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -91,6 +94,10 @@ class _$NewsStateCopyWithImpl<$Res, $Val extends NewsState>
           ? _value.isEveryArticleLoaded
           : isEveryArticleLoaded // ignore: cast_nullable_to_non_nullable
               as bool,
+      isFromInput: null == isFromInput
+          ? _value.isFromInput
+          : isFromInput // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -109,7 +116,8 @@ abstract class _$$NewsStateImplCopyWith<$Res>
       List<ArticleItem> articles,
       String? query,
       String? error,
-      bool isEveryArticleLoaded});
+      bool isEveryArticleLoaded,
+      bool isFromInput});
 }
 
 /// @nodoc
@@ -131,6 +139,7 @@ class __$$NewsStateImplCopyWithImpl<$Res>
     Object? query = freezed,
     Object? error = freezed,
     Object? isEveryArticleLoaded = null,
+    Object? isFromInput = null,
   }) {
     return _then(_$NewsStateImpl(
       isLoading: null == isLoading
@@ -157,6 +166,10 @@ class __$$NewsStateImplCopyWithImpl<$Res>
           ? _value.isEveryArticleLoaded
           : isEveryArticleLoaded // ignore: cast_nullable_to_non_nullable
               as bool,
+      isFromInput: null == isFromInput
+          ? _value.isFromInput
+          : isFromInput // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -170,7 +183,8 @@ class _$NewsStateImpl extends _NewsState {
       final List<ArticleItem> articles = const [],
       this.query = null,
       this.error = null,
-      this.isEveryArticleLoaded = false})
+      this.isEveryArticleLoaded = false,
+      this.isFromInput = false})
       : _articles = articles,
         super._();
 
@@ -198,10 +212,13 @@ class _$NewsStateImpl extends _NewsState {
   @override
   @JsonKey()
   final bool isEveryArticleLoaded;
+  @override
+  @JsonKey()
+  final bool isFromInput;
 
   @override
   String toString() {
-    return 'NewsState(isLoading: $isLoading, isLoadingMore: $isLoadingMore, articles: $articles, query: $query, error: $error, isEveryArticleLoaded: $isEveryArticleLoaded)';
+    return 'NewsState(isLoading: $isLoading, isLoadingMore: $isLoadingMore, articles: $articles, query: $query, error: $error, isEveryArticleLoaded: $isEveryArticleLoaded, isFromInput: $isFromInput)';
   }
 
   @override
@@ -217,7 +234,9 @@ class _$NewsStateImpl extends _NewsState {
             (identical(other.query, query) || other.query == query) &&
             (identical(other.error, error) || other.error == error) &&
             (identical(other.isEveryArticleLoaded, isEveryArticleLoaded) ||
-                other.isEveryArticleLoaded == isEveryArticleLoaded));
+                other.isEveryArticleLoaded == isEveryArticleLoaded) &&
+            (identical(other.isFromInput, isFromInput) ||
+                other.isFromInput == isFromInput));
   }
 
   @override
@@ -228,7 +247,8 @@ class _$NewsStateImpl extends _NewsState {
       const DeepCollectionEquality().hash(_articles),
       query,
       error,
-      isEveryArticleLoaded);
+      isEveryArticleLoaded,
+      isFromInput);
 
   /// Create a copy of NewsState
   /// with the given fields replaced by the non-null parameter values.
@@ -246,7 +266,8 @@ abstract class _NewsState extends NewsState {
       final List<ArticleItem> articles,
       final String? query,
       final String? error,
-      final bool isEveryArticleLoaded}) = _$NewsStateImpl;
+      final bool isEveryArticleLoaded,
+      final bool isFromInput}) = _$NewsStateImpl;
   const _NewsState._() : super._();
 
   @override
@@ -261,6 +282,8 @@ abstract class _NewsState extends NewsState {
   String? get error;
   @override
   bool get isEveryArticleLoaded;
+  @override
+  bool get isFromInput;
 
   /// Create a copy of NewsState
   /// with the given fields replaced by the non-null parameter values.

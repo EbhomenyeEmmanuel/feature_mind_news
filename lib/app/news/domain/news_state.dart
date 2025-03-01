@@ -1,4 +1,4 @@
- import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'article_item.dart';
 part 'news_state.freezed.dart';
@@ -14,5 +14,6 @@ class NewsState with _$NewsState {
     @Default(null) String? query,
     @Default(null) String? error,
     @Default(false) bool isEveryArticleLoaded,
+    @Default(false) bool isFromInput,
   }) = _NewsState;
 }

@@ -22,11 +22,13 @@ class _InputScreenState extends ConsumerState<InputScreen> {
       if (!mounted) return; // Prevent execution if the widget is disposed
       WidgetsBinding.instance.addPostFrameCallback((_) async {
         //Listen for state changes
-        if ((previous?.articles.isEmpty ?? true) && next.articles.isNotEmpty) {
+        if (next.articles.isNotEmpty && next.isFromInput) {
+          // Prevent multiple navigation calls using the isFromInput flag
           debugPrint('Navigating to screen 2');
           ref
               .read(searchNotifierProvider.notifier)
               .saveSearchQuery(inputCtrl.text);
+          ref.read(newsNotifierProvider.notifier).resetNavigation();
           await Navigator.of(context).push(FadePageRoute(
               page: NewsListScreen(query: next.query ?? inputCtrl.text)));
         }
@@ -92,7 +94,7 @@ class _InputScreenState extends ConsumerState<InputScreen> {
                   if (_formKey.currentState!.validate()) {
                     ref
                         .read(newsNotifierProvider.notifier)
-                        .fetchNews(inputCtrl.text);
+                        .fetchNews(inputCtrl.text, isFromInput: true);
                   }
                 },
                 text: 'Search',
