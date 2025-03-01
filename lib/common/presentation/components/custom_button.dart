@@ -3,6 +3,7 @@ import 'package:feature_mind_news/common/utils/extensions.dart';
 
 import '../../utils/colors.dart';
 
+/// Custom Button Widget for easy reuse
 class CustomButton extends StatelessWidget {
   final Function onPressed;
   final String text;

@@ -1,6 +1,6 @@
-import 'package:feature_mind_news/presentation/search_screen.dart';
-import '../init.dart';
-import '../main.dart';
+import 'package:feature_mind_news/app/search/presentation/search_screen.dart';
+import '../../../init.dart';
+import '../../../main.dart';
 
 class NewsListScreen extends ConsumerStatefulWidget {
   final String query;
@@ -81,7 +81,6 @@ class _NewsListScreenState extends ConsumerState<NewsListScreen> {
                           errorPlaceholder: article.title,
                           width: 50,
                           height: 50,
-                          boxFit: BoxFit.cover,
                           isCircular: true,
                         ),
                         title: Text(article.title),

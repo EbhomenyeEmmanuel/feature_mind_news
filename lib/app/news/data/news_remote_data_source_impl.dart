@@ -1,13 +1,15 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:feature_mind_news/common/data/base_error_response.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import '../common/utils/utils.dart';
+import '../../../common/utils/utils.dart';
+import '../domain/news_remote_data_source.dart';
 import '../domain/paginated_articles.dart';
+import '../../../common/data/base_error_response.dart';
 import 'news_response_model.dart';
 
-class NewsRemoteDataSource {
+class NewsRemoteDataSourceImpl extends NewsRemoteDataSource {
+  @override
   Future<PaginatedArticles> fetchItems({
     String? query,
     int? pageSize,

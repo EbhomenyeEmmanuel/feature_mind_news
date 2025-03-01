@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+///Extensions
 extension ContextExtension on BuildContext {
   double getHeight([double factor = 1]) {
     assert(factor != 0);

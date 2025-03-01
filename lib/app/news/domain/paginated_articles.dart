@@ -1,4 +1,4 @@
-import 'package:feature_mind_news/domain/domain.dart';
+import 'article_item.dart';
 
 class PaginatedArticles {
   final int totalResults;

@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../common/utils/utils.dart';
+import '../../../common/utils/utils.dart';
 import '../domain/get_articles_usecase.dart';
 import '../domain/news_state.dart';
 
@@ -12,6 +12,7 @@ class NewsNotifier extends StateNotifier<NewsState> {
   int resultPerPage = 20;
   NewsNotifier(this.useCase) : super(const NewsState());
 
+  /// Fetch news articles
   Future<void> fetchNews(String query, {bool isLoadMore = false}) async {
     if (state.isLoading || (isLoadMore && state.isEveryArticleLoaded)) {
       return;
@@ -36,6 +37,9 @@ class NewsNotifier extends StateNotifier<NewsState> {
       final totalPages = (res.totalResults / resultPerPage).ceil();
 
       final articles = state.articles.followedBy(res.articles).toSet().toList();
+      //Sorted by descending order i.e newest article comes first
+      articles.sort((a, b) => DateTime.parse(b.publishedAt)
+          .compareTo(DateTime.parse(a.publishedAt)));
       state = state.copyWith(
           articles: articles, isEveryArticleLoaded: _page >= totalPages);
     } on SocketException catch (_) {

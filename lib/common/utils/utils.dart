@@ -6,10 +6,12 @@ import 'package:smart_snackbars/smart_snackbars.dart';
 import 'dart:developer' as dev;
 
 class Utils {
+  //Utility method for logging to the console
   static void log({required dynamic message, String tag = ''}) {
     dev.log(message.toString(), name: tag);
   }
 
+  //Utility method for displaying a snackbar
   static void showSnackBar(BuildContext context,
       {String? title, required String message}) async {
     SmartSnackBars.showTemplatedSnackbar(
@@ -60,7 +62,6 @@ class LeftToRightPageRoute<T> extends PageRouteBuilder<T> {
             var tween =
                 Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
             var offsetAnimation = animation.drive(tween);
-
             return SlideTransition(position: offsetAnimation, child: child);
           },
         );

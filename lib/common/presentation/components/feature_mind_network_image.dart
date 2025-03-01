@@ -4,6 +4,7 @@ import 'package:feature_mind_news/common/utils/extensions.dart';
 
 import '../../utils/colors.dart';
 
+/// Custom NetworkImage Widget that caches network images and displays an error placeholder if an error occurs.
 class FeatureMindNetworkImage extends StatelessWidget {
   const FeatureMindNetworkImage(
       {super.key,

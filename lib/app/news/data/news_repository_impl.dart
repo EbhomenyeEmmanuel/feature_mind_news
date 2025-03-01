@@ -1,7 +1,7 @@
+import '../domain/news_remote_data_source.dart';
 import '../domain/news_repository.dart';
 import '../domain/paginated_articles.dart';
 import 'news_local_data_source.dart';
-import 'news_remote_data_source.dart';
 
 class NewsRepositoryImpl extends NewsRepository {
   final NewsRemoteDataSource remoteDataSource;

@@ -1,7 +1,7 @@
-import '../main.dart';
+import '../../../main.dart';
 import 'news_list_screen.dart';
 
-import '../init.dart';
+import '../../../init.dart';
 
 class InputScreen extends ConsumerStatefulWidget {
   const InputScreen({super.key});

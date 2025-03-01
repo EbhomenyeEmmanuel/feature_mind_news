@@ -1,24 +1,25 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:feature_mind_news/injector.dart';
-import 'domain/news_state.dart';
+import 'app/news/news.dart';
 import 'init.dart';
-import 'presentation/input_screen.dart';
-import 'presentation/news_provider.dart';
-import 'presentation/search_notifier.dart';
+import 'app/search/presentation/search_notifier.dart';
 
+//Declare the newsNotifierProvider
 final newsNotifierProvider =
     StateNotifierProvider<NewsNotifier, NewsState>((ref) {
-  return NewsNotifier(getIt());
+  return NewsNotifier(getIt()); //Injected components via contructor injection
 });
 
+//Declare the newsNotifierProvider
 final searchNotifierProvider =
     StateNotifierProvider<SearchNotifier, List<String>>((ref) {
-  return SearchNotifier(getIt());
+  return SearchNotifier(getIt()); //Injected components via contructor injection
 });
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   ErrorWidget.builder = (FlutterErrorDetails details) {
+    //Displayed a custom widget if the framework encounters an error instead of the default grey content
     return Material(
       child: Container(
         color: AppColors.primary,

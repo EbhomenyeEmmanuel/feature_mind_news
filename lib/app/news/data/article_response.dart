@@ -10,14 +10,6 @@ class ArticleResponse extends ArticleItem {
       super.publishedAt,
       super.content});
 
-  // final String author;
-  // final String title;
-  // final String description;
-  // final String url;
-  // String urlToImage;
-  // final String publishedAt;
-  // final String content;
-
   factory ArticleResponse.fromJson(Map<String, dynamic> json) {
     return ArticleResponse(
       author: json['author'] ?? '',

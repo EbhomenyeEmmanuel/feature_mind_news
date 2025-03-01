@@ -1,7 +1,3 @@
-/// status : "error"
-/// code : "maximumResultsReached"
-/// message : "You have requested too many results. Developer accounts are limited to a max of 100 results. You are trying to request results 0 to 200. Please upgrade to a paid plan if you need more results."
-
 class BaseErrorResponse {
   BaseErrorResponse({
     this.status,

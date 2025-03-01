@@ -1,6 +1,6 @@
-import 'package:feature_mind_news/domain/article_item.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+ import 'package:freezed_annotation/freezed_annotation.dart';
 
+import 'article_item.dart';
 part 'news_state.freezed.dart';
 
 @freezed

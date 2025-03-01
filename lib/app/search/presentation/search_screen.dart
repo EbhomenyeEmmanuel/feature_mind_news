@@ -1,13 +1,13 @@
 import 'package:feature_mind_news/main.dart';
-import 'package:collection/collection.dart';
 
-import '../init.dart';
+import '../../../init.dart';
 
 class SearchScreen extends ConsumerWidget {
   const SearchScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    //Listen to search items state changes
     final searchItems = ref.watch(searchNotifierProvider);
     return Scaffold(
         appBar: AppBar(
@@ -20,28 +20,27 @@ class SearchScreen extends ConsumerWidget {
             child: (searchItems.isEmpty)
                 ? const SizedBox.shrink()
                 : ListView(
-                    children: [
-                      ...searchItems
-                          .mapIndexed((index, e) => _SearchContentItem(
-                                e,
-                                onSearch: () async {
-                                  Navigator.pop(context);
-                                  ref
-                                      .read(newsNotifierProvider.notifier)
-                                      .fetchNews(e);
-                                },
-                                onDelete: () async {
-                                  ref
-                                      .read(searchNotifierProvider.notifier)
-                                      .removeSearchItem(e);
-                                },
-                              )),
-                      const SizedBox.shrink(),
-                    ],
+                    children: searchItems
+                        .map((e) => _SearchContentItem(
+                              e,
+                              onSearch: () async {
+                                Navigator.pop(context);
+                                ref
+                                    .read(newsNotifierProvider.notifier)
+                                    .fetchNews(e);
+                              },
+                              onDelete: () async {
+                                ref
+                                    .read(searchNotifierProvider.notifier)
+                                    .removeSearchItem(e);
+                              },
+                            ))
+                        .toList(),
                   )));
   }
 }
 
+//Widget for search content item
 class _SearchContentItem extends StatelessWidget {
   const _SearchContentItem(this.text, {this.onSearch, this.onDelete});
   final String text;

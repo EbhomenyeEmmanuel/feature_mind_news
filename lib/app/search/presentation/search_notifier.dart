@@ -1,5 +1,6 @@
-import 'package:feature_mind_news/data/data.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../data/search_item_data_source.dart';
 
 /// Fetches list of searched queries from the data source
 class SearchNotifier extends StateNotifier<List<String>> {
