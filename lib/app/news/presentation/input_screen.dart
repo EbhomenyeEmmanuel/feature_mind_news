@@ -18,19 +18,21 @@ class _InputScreenState extends ConsumerState<InputScreen> {
   void initState() {
     super.initState();
     inputCtrl = TextEditingController(); //instantiate the controller
+    bool hasNavigated = false;
     ref.listenManual(newsNotifierProvider, (previous, next) {
       if (!mounted) return; // Prevent execution if the widget is disposed
       WidgetsBinding.instance.addPostFrameCallback((_) async {
         //Listen for state changes
-        if (next.articles.isNotEmpty && next.isFromInput) {
-          // Prevent multiple navigation calls using the isFromInput flag
+        if (next.articles.isNotEmpty && !hasNavigated) {
+          hasNavigated = true;
           debugPrint('Navigating to screen 2');
           ref
               .read(searchNotifierProvider.notifier)
               .saveSearchQuery(inputCtrl.text);
-          ref.read(newsNotifierProvider.notifier).resetNavigation();
-          await Navigator.of(context).push(FadePageRoute(
-              page: NewsListScreen(query: next.query ?? inputCtrl.text)));
+          await Navigator.of(context)
+              .push(FadePageRoute(
+                  page: NewsListScreen(query: next.query ?? inputCtrl.text)))
+              .then((_) => hasNavigated = false);
         }
         if (next.error != null) {
           if (!mounted) return;
@@ -94,7 +96,7 @@ class _InputScreenState extends ConsumerState<InputScreen> {
                   if (_formKey.currentState!.validate()) {
                     ref
                         .read(newsNotifierProvider.notifier)
-                        .fetchNews(inputCtrl.text, isFromInput: true);
+                        .fetchNews(inputCtrl.text);
                   }
                 },
                 text: 'Search',
