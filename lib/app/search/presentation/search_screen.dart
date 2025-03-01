@@ -13,7 +13,7 @@ class SearchScreen extends ConsumerWidget {
         appBar: AppBar(
           title: Text('Recent searches',
               textAlign: TextAlign.center,
-              style: context.textTheme.displayMedium),
+              style: context.textTheme.headlineMedium),
         ),
         body: Padding(
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
