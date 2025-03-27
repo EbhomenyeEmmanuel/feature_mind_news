@@ -12,7 +12,7 @@ To get started with the project, follow these steps:
    ```bash
    flutter pub get
 3. **Set up environment variables:** 
-- Create a .env file in the root directory.
+- Create a .env file called keys in the root directory.
 - Add your API key for [The News API](https://newsapi.org/)
    ```env
    apiKey=your_api_key_here
